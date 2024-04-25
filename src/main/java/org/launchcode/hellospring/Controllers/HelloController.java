@@ -12,19 +12,24 @@ import java.util.Objects;
 @RequestMapping("/")
 public class HelloController {
     public static String createMessage(String n, String l) {
+        String greeting;
         if (Objects.equals(l, "en")) {
-            return "Hello, " + n + "!";
+            greeting = "Hello, " + n + "!";
         } else if (Objects.equals(l, "grc")) {
-            return "Χαῖρε, " + n + "!";
+            greeting = "Χαῖρε, " + n + "!";
         } else if (Objects.equals(l, "el")) {
-            return "Γειά σας, " + n + "!";
+            greeting = "Γειά σας, " + n + "!";
         } else if (Objects.equals(l, "he")) {
-            return "!" + n + " ,שׁלום";
+            greeting = "!" + n + " ,שׁלום";
         } else if (Objects.equals(l, "es")) {
-            return "¡Hola, " + n + "!";
+            greeting = "¡Hola, " + n + "!";
         } else {
             return "oops";
         }
+        return "<html>" +
+                "<h1 style= \"font-size: 20;\">" +
+                greeting +
+                "</h1?";
     }
 
 //    @GetMapping("/")
@@ -38,7 +43,7 @@ public class HelloController {
 
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
     public String helloWithQueryParam(@RequestParam String name, @RequestParam String language) {
-        if (name == null){
+        if (name == null) {
             name = "World";
         }
         return createMessage(name, language);
