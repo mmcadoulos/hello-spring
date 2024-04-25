@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@ResponseBody
+@RequestMapping("hello")
 public class HelloController {
 //    @GetMapping("hello")
 //    @ResponseBody
@@ -12,14 +14,14 @@ public class HelloController {
 //    }
 
 //    @GetMapping("hello")
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
-    @ResponseBody
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}/*, value = "hello"*/)
+//    @ResponseBody
     public String helloWithQueryParam(@RequestParam String name) {
         return "Hello, " + name + "!";
     }
 
-    @GetMapping("hello/{name}")
-    @ResponseBody
+    @GetMapping("{name}")
+//    @ResponseBody
     public String helloWithPathParam(@PathVariable String name) {
         return "Hello, " + name + "!";
     }
@@ -36,22 +38,22 @@ public class HelloController {
 //        return "Goodbye, Spring :(";
 //    }
 
+    // lives /hello/goodbye
     @GetMapping("goodbye")
-    @ResponseBody
+//    @ResponseBody
     public String goodbyeWithQueryParam(@RequestParam String name) {
         return "Goodbye, " + name + "        :(";
     }
 
     @GetMapping("goodbye/{name}")
-    @ResponseBody
-    public String goodbyeWithPathParam(@PathVariable String name){
+//    @ResponseBody
+    public String goodbyeWithPathParam(@PathVariable String name) {
         return "Goodbye, " + name + "        :(";
     }
 
-
-
+//    // form for get request
 //    @GetMapping("form")
-//    @ResponseBody
+////    @ResponseBody
 //    public String helloForm() {
 //        String html =
 //                "<html>" +
@@ -68,10 +70,10 @@ public class HelloController {
 //        return html;
 //    }
 
-
     // for post request
+    // lives hello/form
     @GetMapping("form")
-    @ResponseBody
+//    @ResponseBody
     public String helloForm() {
         String html =
                 "<html>" +
