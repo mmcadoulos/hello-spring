@@ -1,63 +1,64 @@
 package org.launchcode.hellospring.Controllers;
 
+import com.sun.source.tree.SwitchTree;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.invoke.SwitchPoint;
+import java.util.Objects;
+
 @Controller
 @ResponseBody
-@RequestMapping("hello")
+@RequestMapping("/")
 public class HelloController {
+    public static String createMessage(String n, String l) {
+        if (Objects.equals(l, "en")) {
+            return "Hello, " + n + "!";
+        } else if (Objects.equals(l, "grc")) {
+            return "Χαῖρε, " + n + "!";
+        } else if (Objects.equals(l, "el")) {
+            return "Γειά σας, " + n + "!";
+        } else if (Objects.equals(l, "he")) {
+            return "!" + n + " ,שׁלום";
+        } else if (Objects.equals(l, "es")) {
+            return "¡Hola, " + n + "!";
+        } else {
+            return "oops";
+        }
+    }
 
-//    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-//    public String helloWithQueryParam(@RequestParam String name) {
-//        return "Hello, " + name + "!";
+//    @GetMapping("/")
+//    public String index() {
+//        return "" +
+//                "<html>" +
+//                "<form method = 'get' action = '/form'>" +
+//                "<input type = 'submit' value = 'begin!'>" +
+//                "</form>";
 //    }
 
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    public String helloWithTwoQueryParam(@RequestParam String name, @RequestParam String friend){
-        return "Hello, " + name + " and " + friend + "!";
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
+    public String helloWithQueryParam(@RequestParam String name, @RequestParam String language) {
+        if (name == null){
+            name = "World";
+        }
+        return createMessage(name, language);
     }
 
-    @GetMapping("{name}")
-    public String helloWithPathParam(@PathVariable String name) {
-        return "Hello, " + name + "!";
-    }
-
-    //    // Not sure how the redirect works yet
-//    @GetMapping("hello/{name}")
-//    public String helloAgainRedirect(@PathVariable String name){
-//        return "redirect:/BananaPhone";
-//    }
-
-//    @GetMapping("goodbye")
-//    @ResponseBody
-//    public String goodbye() {
-//        return "Goodbye, Spring :(";
-//    }
-
-    // lives /hello/goodbye
-    @GetMapping("goodbye")
-    public String goodbyeWithQueryParam(@RequestParam String name) {
-        return "Goodbye, " + name + "        :(";
-    }
-
-    @GetMapping("goodbye/{name}")
-    public String goodbyeWithPathParam(@PathVariable String name) {
-        return "Goodbye, " + name + "        :(";
-    }
-
-
-    // for post request
-    // lives hello/form
-    @GetMapping("form")
+    @GetMapping("/")
     public String helloForm() {
         String html =
                 "<html>" +
-                        "<title>Post Form</title>" +
-                        "<p>" +
+                        "<body>" +
                         "<form method = 'post' action = '/hello'>" + // submits a get request to /hello (unspecified method would be "get")
                         "<input type = 'text' name = 'name' />" + // name of the parameter is 'name' like in my controller
-                        "<input type = 'text' name = 'friend' />" + // adding friend parameter
+                        "<select name = 'language' id = 'language-select'>" +
+                        "<option value=\"\">--Please choose an option--</option>" +
+                        "<option value=\"en\">English</option>" +
+                        "<option value=\"grc\">Greek, Ancient</option>" +
+                        "<option value=\"el\">Greek, Modern</option>" +
+                        "<option value=\"he\">Hebrew</option>" +
+                        "<option value=\"es\">Spanish</option>" +
+                        "</select>" +
                         "<input type = 'submit' value = 'Greet Me!' />" +
                         "</form>" +
                         "</body>" +
