@@ -1,10 +1,7 @@
 package org.launchcode.hellospring.Controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HelloController {
@@ -14,7 +11,8 @@ public class HelloController {
 //        return "Hello, Spring!";
 //    }
 
-    @GetMapping("hello")
+//    @GetMapping("hello")
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
     @ResponseBody
     public String helloWithQueryParam(@RequestParam String name) {
         return "Hello, " + name + "!";
@@ -49,5 +47,44 @@ public class HelloController {
     public String goodbyeWithPathParam(@PathVariable String name){
         return "Goodbye, " + name + "        :(";
     }
+
+
+
+//    @GetMapping("form")
+//    @ResponseBody
+//    public String helloForm() {
+//        String html =
+//                "<html>" +
+//                        "<p>" +
+//                       /* "AHCH" +
+//                        "</p>" +
+//                        "<body>" +*/
+//                        "<form method = 'get' action = '/hello'>" + // submits a get request to /hello (unspecified method would be "get")
+//                        "<input type = 'text' name = 'name' />" + // name of the parameter is 'name' like in my controller
+//                        "<input type = 'submit' value = 'Greet Me!' />" +
+//                        "</form>" +
+//                        "</body>" +
+//                        "</html>";
+//        return html;
+//    }
+
+
+    // for post request
+    @GetMapping("form")
+    @ResponseBody
+    public String helloForm() {
+        String html =
+                "<html>" +
+                        "<title>Post Form</title>" +
+                        "<p>" +
+                        "<form method = 'post' action = '/hello'>" + // submits a get request to /hello (unspecified method would be "get")
+                        "<input type = 'text' name = 'name' />" + // name of the parameter is 'name' like in my controller
+                        "<input type = 'submit' value = 'Greet Me!' />" +
+                        "</form>" +
+                        "</body>" +
+                        "</html>";
+        return html;
+    }
+
 }
 
