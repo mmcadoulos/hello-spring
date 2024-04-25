@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("hello")
 public class HelloController {
 
+//    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+//    public String helloWithQueryParam(@RequestParam String name) {
+//        return "Hello, " + name + "!";
+//    }
+
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    public String helloWithQueryParam(@RequestParam String name) {
-        return "Hello, " + name + "!";
+    public String helloWithTwoQueryParam(@RequestParam String name, @RequestParam String friend){
+        return "Hello, " + name + " and " + friend + "!";
     }
 
     @GetMapping("{name}")
@@ -52,6 +57,7 @@ public class HelloController {
                         "<p>" +
                         "<form method = 'post' action = '/hello'>" + // submits a get request to /hello (unspecified method would be "get")
                         "<input type = 'text' name = 'name' />" + // name of the parameter is 'name' like in my controller
+                        "<input type = 'text' name = 'friend' />" + // adding friend parameter
                         "<input type = 'submit' value = 'Greet Me!' />" +
                         "</form>" +
                         "</body>" +
