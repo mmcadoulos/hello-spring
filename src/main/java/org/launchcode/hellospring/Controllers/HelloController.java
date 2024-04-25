@@ -7,21 +7,13 @@ import org.springframework.web.bind.annotation.*;
 @ResponseBody
 @RequestMapping("hello")
 public class HelloController {
-//    @GetMapping("hello")
-//    @ResponseBody
-//    public String hello() {
-//        return "Hello, Spring!";
-//    }
 
-//    @GetMapping("hello")
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}/*, value = "hello"*/)
-//    @ResponseBody
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
     public String helloWithQueryParam(@RequestParam String name) {
         return "Hello, " + name + "!";
     }
 
     @GetMapping("{name}")
-//    @ResponseBody
     public String helloWithPathParam(@PathVariable String name) {
         return "Hello, " + name + "!";
     }
@@ -40,40 +32,19 @@ public class HelloController {
 
     // lives /hello/goodbye
     @GetMapping("goodbye")
-//    @ResponseBody
     public String goodbyeWithQueryParam(@RequestParam String name) {
         return "Goodbye, " + name + "        :(";
     }
 
     @GetMapping("goodbye/{name}")
-//    @ResponseBody
     public String goodbyeWithPathParam(@PathVariable String name) {
         return "Goodbye, " + name + "        :(";
     }
 
-//    // form for get request
-//    @GetMapping("form")
-////    @ResponseBody
-//    public String helloForm() {
-//        String html =
-//                "<html>" +
-//                        "<p>" +
-//                       /* "AHCH" +
-//                        "</p>" +
-//                        "<body>" +*/
-//                        "<form method = 'get' action = '/hello'>" + // submits a get request to /hello (unspecified method would be "get")
-//                        "<input type = 'text' name = 'name' />" + // name of the parameter is 'name' like in my controller
-//                        "<input type = 'submit' value = 'Greet Me!' />" +
-//                        "</form>" +
-//                        "</body>" +
-//                        "</html>";
-//        return html;
-//    }
 
     // for post request
     // lives hello/form
     @GetMapping("form")
-//    @ResponseBody
     public String helloForm() {
         String html =
                 "<html>" +
