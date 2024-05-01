@@ -4,66 +4,39 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@ResponseBody
-@RequestMapping("hello")
 public class HelloController {
+    //handle request at path http://localhost:8080/hello
 
-//    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-//    public String helloWithQueryParam(@RequestParam String name) {
-//        return "Hello, " + name + "!";
+//    @GetMapping("hello")
+//    @ResponseBody
+//    public String hello(){
+//        return "Hello, Spring!";
 //    }
 
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    public String helloWithTwoQueryParam(@RequestParam String name, @RequestParam String friend){
-        return "Hello, " + name + " and " + friend + "!";
+    //handle request at path //http://localhost:8080/goodbye
+    @GetMapping("goodbye")
+    @ResponseBody
+    public String goodbye(){
+        return "Goodbye, Spring!";
     }
 
-    @GetMapping("{name}")
-    public String helloWithPathParam(@PathVariable String name) {
+    //handle requests of the form http://localhost:8080/hello?name=LaunchCode
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
+    @ResponseBody
+    public String helloWithQueryParam(@RequestParam String name){
         return "Hello, " + name + "!";
     }
 
-    //    // Not sure how the redirect works yet
-//    @GetMapping("hello/{name}")
-//    public String helloAgainRedirect(@PathVariable String name){
-//        return "redirect:/BananaPhone";
-//    }
-
-//    @GetMapping("goodbye")
-//    @ResponseBody
-//    public String goodbye() {
-//        return "Goodbye, Spring :(";
-//    }
-
-    // lives /hello/goodbye
-    @GetMapping("goodbye")
-    public String goodbyeWithQueryParam(@RequestParam String name) {
-        return "Goodbye, " + name + "        :(";
+    //handle requests of the form http://localhost:8080/hello/LaunchCode
+    @GetMapping("hello/{name}")
+    @ResponseBody
+    public String helloWithPathParam(@PathVariable String name){
+        return "Hello, " + name + "!";
     }
 
-    @GetMapping("goodbye/{name}")
-    public String goodbyeWithPathParam(@PathVariable String name) {
-        return "Goodbye, " + name + "        :(";
-    }
-
-
-    // for post request
-    // lives hello/form
     @GetMapping("form")
     public String helloForm() {
-        String html =
-                "<html>" +
-                        "<title>Post Form</title>" +
-                        "<p>" +
-                        "<form method = 'post' action = '/hello'>" + // submits a get request to /hello (unspecified method would be "get")
-                        "<input type = 'text' name = 'name' />" + // name of the parameter is 'name' like in my controller
-                        "<input type = 'text' name = 'friend' />" + // adding friend parameter
-                        "<input type = 'submit' value = 'Greet Me!' />" +
-                        "</form>" +
-                        "</body>" +
-                        "</html>";
-        return html;
+        return "form";
     }
 
 }
-
